@@ -8,6 +8,7 @@ export default function Home() {
   const [request, setRequest] = React.useState(null);
   const [pCode, setPCode] = React.useState("G444QQ");
   const [day, setDay] = React.useState(true);
+  const [numberOfClouds, setNumberOfClouds] = React.useState(1);
   /*const [ip, setIp] = React.useState(null);*/
   React.useEffect(() => {
     getWeatherData(); // get weather data on page load
@@ -32,7 +33,7 @@ export default function Home() {
       });
   }
   if (!request) return null;
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     /** @param e - event object
      * @returns null
      * @example handleSubmit(e) updates postcode state with user input then updates weather data
@@ -49,7 +50,7 @@ export default function Home() {
     setPCode(postcode); // update postcode state
     getWeatherData(); // update weather data
   }
-  function validatePostCode(input) {
+  function validatePostCode(input: string) {
     /** @param input - string containing postcode
      * @returns string containing postcode if valid, null if invalid
      * @example validatePostCode("ML11 0PP") returns "ML110PP"
@@ -72,6 +73,35 @@ export default function Home() {
       return null;
     }
   }
+  function Clouds(number: number, light: boolean) {
+    let clouds = [];
+    if (number > 4) {
+      setNumberOfClouds(4);
+      number = 4;
+    }
+    if (number < 1 || number === null) {
+      setNumberOfClouds(1);
+      number = 1;
+    }
+    for (let i = 1; i <= number; i++) {
+      if (light) {
+        clouds.push(
+            <div className={"x" + i}>
+              <div className={"cloud light"}></div>
+            </div>
+        );
+      }
+      else {
+        clouds.push(
+            <div className={"x" + i}>
+              <div className={"cloud dark"}></div>
+            </div>
+        );
+      }
+    }
+    return clouds;
+  }
+
   if (day) {
     document.body.classList.remove("night");
     document.body.classList.add("day");
@@ -82,27 +112,22 @@ export default function Home() {
 
   return (
     <body>
-      <div id={'background-wrap'}>
-        <div className={"x1"}>
-          <div className={"cloud"}></div>
-        </div>
-        <div className={"x2"}>
-          <div className={"cloud"}></div>
-        </div>
-        <div className={"x3"}>
-          <div className={"cloud"}></div>
-        </div>
+      <div id={'background-wrap'} onClick={() => setNumberOfClouds(numberOfClouds + 1)}>
+        {Clouds(numberOfClouds, true).map((cloud) => {
+          return <>{cloud}</>
+        })}
       </div>
-      <div className={"container"}>
+      <div className={"container"} onClick={() => setNumberOfClouds(numberOfClouds - 1)}>
+        <div className={"container_background"}></div>
         <div className={"header"}>
           <div className={"title"}>Weather App</div>
           <form onSubmit={handleSubmit}>
-            <input name={"postCode"} defaultValue={pCode} />
-            <button type={"submit"}>Submit</button>
+            <input className={"pCode_input"} name={"postCode"} defaultValue={pCode} />
           </form>
         </div>
         <Location request={request} />
         <Weather request={request} />
+        {/*<button className={"button"} onClick={() => setNumberOfClouds(numberOfClouds - 1)}></button>*/}
       </div>
     </body>
   );

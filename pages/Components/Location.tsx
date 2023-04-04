@@ -9,7 +9,7 @@ function Location({ request }: sectionProps) {
     const [apiData, setApiData] = React.useState(request);
 
     let localtime = apiData["location"]["localtime"]; // get string containing date and time
-    function getDateString(inputDate) {
+    function getDateString(inputDate: string) {
         /**
          * @param inputDate - string containing date in format YYYY-MM-DD HH:MM:SS
          * @returns string containing date in format Month DD YYYY
@@ -52,7 +52,7 @@ function Location({ request }: sectionProps) {
         <>
             <div className={"locationHolder"}>
                 <div className={"location"}>{request["location"]["name"]}</div>
-                <div className={"location region"}>{request["location"]["region"]}</div>
+                <div className={"region"}>{request["location"]["region"]}</div>
                 <div className={"dateTimeHolder"}>
                     <div className={"dateTime"}>{timeStr}</div>
                     <div className={"dateTime"}>|</div>

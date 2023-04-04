@@ -12,24 +12,45 @@ body {
 }
 
 .day {
-  background: #00b4ff;
+  background: #7F98B6;
+  /*background: linear-gradient(to bottom left, rgba(165, 138, 135, 100%), rgba(127, 152, 182, 100%));*/
   color: black;
 }
 .night {
-  background: #3f3fa4;
-  color: black;
+  background: rgba(0, 13, 40, 100%);
+  /*background: linear-gradient(to bottom left, rgba(1, 88, 147, 100%), rgba(0, 13, 40, 100%));*/
+  color: white;
 }
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: none;
   z-index: 3;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 20px;
+  padding: 20px;
+}
+.container_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, .25),
+    rgba(255, 255, 255, .35),
+    rgba(255, 255, 255, .25)
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, .25);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, .25);
+  backdrop-filter: blur(2px);
 }
 .header {
   display: flex;
@@ -38,6 +59,14 @@ body {
   align-items: center;
   font-family: var(--main-font);
 }
+.pCode_input {
+  margin: 0;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, .35);
+}
+
 .title {
   font-size: 2rem;
   font-weight: bold;
@@ -54,6 +83,7 @@ body {
 .location {
   font-size: 1.5rem;
   font-weight: bold;
+  padding-top: 10px;
 }
 .region {
   font-size: 1rem;
@@ -66,6 +96,7 @@ body {
   align-items: center;
   justify-content: space-around;
   width: 160px;
+  padding-top: 10px;
 }
 .dateTime {
   font-size: 1rem;
@@ -81,6 +112,7 @@ body {
 .weather_icon_holder {
   width: 150px;
   height: 150px;
+  padding: 10px;
 }
 
 .weather_icon {
@@ -164,6 +196,7 @@ body {
   right: 50px;
   top: -90px;
 }
+
 
 /* KEYFRAMES */
 
